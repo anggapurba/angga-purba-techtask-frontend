@@ -3,7 +3,7 @@ class Header extends Component {
   render() {
     return (
       <div>
-        <h1>Ini adalah komponen header</h1>
+        <p>header here</p>
       </div>
     );
   }

@@ -7,14 +7,21 @@ class Datepicker extends Component {
     date: new Date(),
   }
 
-  onChange = date => this.setState({ date })
+  onChangeDate = date => {
+    var {
+      onChange
+    } = this.props;
+
+    this.setState({ date })
+    onChange(this.state.date); // return value to parent
+  }
 
   render() {
 
     return (
       <div>
         <DateTimePicker
-          onChange={this.onChange}
+          onChange={this.onChangeDate}
           value={this.state.date}
         />
       </div>
