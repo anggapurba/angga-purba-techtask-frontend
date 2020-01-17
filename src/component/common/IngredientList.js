@@ -46,7 +46,9 @@ class IngredientList extends Component {
 
   render() {
     const{
-      ingredientData
+      ingredientData,
+      choosenTimeStampDate,
+      formatDateTimeStamp
     } = this.props;
 
     if(ingredientData.length <1 ){
@@ -56,16 +58,24 @@ class IngredientList extends Component {
     return (
       <div>
       <ul>
+        <i><b>Checkbox akan muncul jika tanggal lebih kecil dari use-bay</b></i>
         {ingredientData.map(item => (
         <li id={item.title} key={item.title}>
           <div>
-            <input 
+          {
+            (choosenTimeStampDate >= (new Date(item['use-by']).getTime()/1000) )? (
+              null
+            ) : (
+              <input 
               onChange={this.handleChange}
               type="checkbox" 
               name="chooseIngredient" 
               value={item['title']} /> 
-                {item['title']} {item['use-by']}
-              </div>
+            )
+          }
+            
+            {item['title']} {item['use-by']}
+            </div>
         </li>
         ))}
       </ul>

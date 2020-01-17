@@ -12,6 +12,22 @@ class Index extends Component {
     recipes: []
   }
 
+  formatDateTimeStamp = date => {
+
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+    if (month.length < 2) 
+        month = '0' + month;
+    if (day.length < 2) 
+        day = '0' + day;
+    let ymd = [year, month, day].join('-');
+
+    return new Date(ymd).getTime() / 1000;
+
+  }
+
   getDate = choosenDate => {
     this.setState({
       choosenDate
@@ -33,7 +49,6 @@ class Index extends Component {
   getRecipes = async (checkedIngredient) => {
 
     const url = 'https://a61d556b-57ca-423f-8706-2e8dec75d714.mock.pstmn.io/recipes?ingredients='+checkedIngredient;
-    console.log(url);
     let recipesResponse = await fetchMiddleware({
       url,
       method: 'get',
@@ -48,6 +63,9 @@ class Index extends Component {
   
 
   render() {
+    
+    let choosenTimeStampDate = this.formatDateTimeStamp(this.state.choosenDate);
+
     return (
       <div className="row">
         <div className="col-md-2 pull-left">
@@ -56,10 +74,11 @@ class Index extends Component {
         <div className="col-md-1 pull-left">
           <input type="submit" name="Search" onClick={this.getIngredients} />
         </div>
-        <div className="col-md-3 pull-left">
+        <div className="col-md-6 pull-left">
             <IngredientList 
               ingredientData={this.state.ingredients} 
               getRecipes={this.getRecipes}
+              choosenTimeStampDate={choosenTimeStampDate}
               />
         </div>
         <div className="col-md-3 pull-left">

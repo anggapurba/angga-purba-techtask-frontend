@@ -13,7 +13,7 @@ class Datepicker extends Component {
     } = this.props;
 
     this.setState({ date })
-    onChange(this.state.date); // return value to parent
+    onChange(date); // return value to parent
   }
 
   render() {
